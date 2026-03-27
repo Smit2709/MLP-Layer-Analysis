@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MLP Hidden Layers — Smit Bhavsar</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <span class="nav-logo">MLP Study</span>
+      <ul class="nav-links">
+        <li><a href="#intro">Intro</a></li>
+        <li><a href="#objective">Objective</a></li>
+        <li><a href="#methodology">Methodology</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#discussion">Discussion</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+        <li><a href="#ethics">Ethics</a></li>
+        <li><a href="#references">References</a></li>
+        <li><a href="#github" class="nav-cta">GitHub</a></li>
+      </ul>
+      <button class="burger" id="burger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge">University Assignment · Neural Networks</div>
+      <h1 class="hero-title">Analyzing the Effect of<br/><span class="accent">Hidden Layers</span><br/>on MLP Performance</h1>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-label">Student</span>
+          <span class="meta-value">Smit Bhavsar</span>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <span class="meta-label">Course</span>
+          <span class="meta-value">Machine Learning / Neural Networks</span>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <span class="meta-label">Dataset</span>
+          <span class="meta-value">Digits (Scikit-learn)</span>
+        </div>
+      </div>
+      <a href="#intro" class="scroll-down-btn">↓ Explore the Project</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- INTRO -->
+    <section id="intro" class="section">
+      <div class="container">
+        <div class="section-label">01 / Introduction</div>
+        <h2 class="section-title">What Are We Even Talking About?</h2>
+        <div class="two-col">
+          <div class="col-text">
+            <p>If you've ever wondered how your phone recognises your face or how spam filters work, the answer usually involves a <strong>neural network</strong>. At a basic level, a neural network is a system loosely inspired by the human brain — it takes some input, passes it through layers of calculations, and produces an output (like "this is a cat" or "this email is spam").</p>
+            <p>A <strong>Multilayer Perceptron (MLP)</strong> is the simplest flavour of a fully-connected neural network. It has three types of layers:</p>
+            <ul class="styled-list">
+              <li><span class="tag">Input Layer</span> — receives the raw data (e.g. pixel values of an image)</li>
+              <li><span class="tag">Hidden Layers</span> — where the actual learning magic happens</li>
+              <li><span class="tag">Output Layer</span> — produces the final prediction</li>
+            </ul>
+            <p>The <strong>hidden layers</strong> are the most interesting part. Each one learns to detect different patterns — early layers might pick up simple edges, while deeper layers recognise more complex shapes. This is why the number and size of hidden layers directly affects how smart (or dumb) the model turns out to be.</p>
+          </div>
+          <div class="col-visual">
+            <div class="nn-diagram" aria-label="Simple MLP diagram showing input, hidden, and output layers">
+              <div class="nn-col">
+                <div class="nn-label">Input</div>
+                <div class="nn-node"></div>
+                <div class="nn-node"></div>
+                <div class="nn-node"></div>
+                <div class="nn-node"></div>
+              </div>
+              <div class="nn-lines l1"></div>
+              <div class="nn-col">
+                <div class="nn-label">Hidden 1</div>
+                <div class="nn-node accent-node"></div>
+                <div class="nn-node accent-node"></div>
+                <div class="nn-node accent-node"></div>
+                <div class="nn-node accent-node"></div>
+                <div class="nn-node accent-node"></div>
+              </div>
+              <div class="nn-lines l2"></div>
+              <div class="nn-col">
+                <div class="nn-label">Hidden 2</div>
+                <div class="nn-node accent-node2"></div>
+                <div class="nn-node accent-node2"></div>
+                <div class="nn-node accent-node2"></div>
+                <div class="nn-node accent-node2"></div>
+              </div>
+              <div class="nn-lines l3"></div>
+              <div class="nn-col">
+                <div class="nn-label">Output</div>
+                <div class="nn-node out-node"></div>
+                <div class="nn-node out-node"></div>
+                <div class="nn-node out-node"></div>
+              </div>
+            </div>
+            <p class="diagram-caption">Simplified MLP architecture — input travels right through each layer to produce a prediction.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OBJECTIVE -->
+    <section id="objective" class="section alt-section">
+      <div class="container">
+        <div class="section-label">02 / Objective</div>
+        <h2 class="section-title">What This Project Investigates</h2>
+        <div class="objective-grid">
+          <div class="obj-card">
+            <div class="obj-icon">🎯</div>
+            <h3>Core Question</h3>
+            <p>How does changing the number of hidden layers in an MLP affect its ability to classify handwritten digits correctly?</p>
+          </div>
+          <div class="obj-card">
+            <div class="obj-icon">🔬</div>
+            <h3>What We're Testing</h3>
+            <p>Three architectures: 1 hidden layer, 2 hidden layers, and 3 hidden layers — trained on the exact same dataset under the same conditions.</p>
+          </div>
+          <div class="obj-card">
+            <div class="obj-icon">📊</div>
+            <h3>How We Measure</h3>
+            <p>We compare classification accuracy on test data and plot training loss curves to see not just who wins, but <em>how</em> and <em>why</em>.</p>
+          </div>
+          <div class="obj-card">
+            <div class="obj-icon">💡</div>
+            <h3>Big Takeaway Goal</h3>
+            <p>Understand the real-world trade-off between model depth, performance gains, and the risk of overfitting.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- METHODOLOGY -->
+    <section id="methodology" class="section">
+      <div class="container">
+        <div class="section-label">03 / Methodology</div>
+        <h2 class="section-title">How We Set It Up</h2>
+
+        <div class="method-block">
+          <div class="method-num">01</div>
+          <div class="method-content">
+            <h3>The Dataset — Digits</h3>
+            <p>We used the <strong>Digits dataset</strong> from Scikit-learn — a classic benchmark that contains 1,797 images of handwritten digits (0–9). Each image is 8×8 pixels, giving us 64 features per sample. The goal is to correctly classify what digit each image shows. It's small enough to train quickly but complex enough to make a proper comparison between architectures.</p>
+          </div>
+        </div>
+
+        <div class="method-block">
+          <div class="method-num">02</div>
+          <div class="method-content">
+            <h3>Preprocessing — Getting the Data Ready</h3>
+            <p>Before feeding data into any model, it needs to be cleaned and standardised. We did two key things:</p>
+            <ul class="styled-list">
+              <li><span class="tag">Normalisation</span> — pixel values (originally 0–16) were scaled to a range of 0 to 1. This helps the model train faster and more consistently, since large raw values can make gradients behave unpredictably.</li>
+              <li><span class="tag">Train/Test Split</span> — the data was split 80/20, meaning 80% was used for training and 20% was held back purely for evaluation. The model never sees the test set during training.</li>
+              <li><span class="tag">One-Hot Encoding</span> — the target labels (0–9) were converted into one-hot vectors. For example, digit "3" becomes [0,0,0,1,0,0,0,0,0,0]. This is the format neural network output layers expect.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="method-block">
+          <div class="method-num">03</div>
+          <div class="method-content">
+            <h3>Model Setup — Shared Configuration</h3>
+            <p>All three models used the same base configuration so the comparison is fair. Each model was trained with the <strong>ReLU activation function</strong> in hidden layers, a <strong>Softmax output</strong> for multi-class classification, <strong>Adam optimiser</strong>, and <strong>cross-entropy loss</strong>. The only thing that changed between models was the number of hidden layers.</p>
+          </div>
+        </div>
+
+        <div class="method-block">
+          <div class="method-num">04</div>
+          <div class="method-content">
+            <h3>Architectures Tested</h3>
+            <div class="arch-cards">
+              <div class="arch-card">
+                <div class="arch-badge">Model A</div>
+                <h4>1 Hidden Layer</h4>
+                <code>Input(64) → Dense(128) → Output(10)</code>
+                <p>The simplest version. A single hidden layer with 128 neurons. Good baseline but may lack capacity to learn complex patterns.</p>
+              </div>
+              <div class="arch-card featured-arch">
+                <div class="arch-badge">Model B</div>
+                <h4>2 Hidden Layers</h4>
+                <code>Input(64) → Dense(128) → Dense(64) → Output(10)</code>
+                <p>Adds a second layer with 64 neurons. More capacity to learn hierarchical features without dramatically increasing training time.</p>
+              </div>
+              <div class="arch-card">
+                <div class="arch-badge">Model C</div>
+                <h4>3 Hidden Layers</h4>
+                <code>Input(64) → Dense(128) → Dense(64) → Dense(32) → Output(10)</code>
+                <p>The deepest model. Can theoretically learn richer representations — but also the most prone to overfitting on a small dataset.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results" class="section alt-section">
+      <div class="container">
+        <div class="section-label">04 / Results</div>
+        <h2 class="section-title">What Actually Happened</h2>
+        <p class="section-intro">After training all three models under identical conditions, here's what we found — and frankly, some of it was a bit surprising.</p>
+
+        <div class="results-summary">
+          <div class="result-stat">
+            <span class="stat-num">~94%</span>
+            <span class="stat-label">Model A (1 layer)</span>
+          </div>
+          <div class="result-stat highlight-stat">
+            <span class="stat-num">~97%</span>
+            <span class="stat-label">Model B (2 layers)</span>
+          </div>
+          <div class="result-stat">
+            <span class="stat-num">~96%</span>
+            <span class="stat-label">Model C (3 layers)</span>
+          </div>
+        </div>
+
+        <div class="image-row">
+          <div class="img-card">
+            <img src="images/accuracy.png" alt="Accuracy comparison bar chart" class="img-placeholder">
+            <div class="img-caption">
+              <strong>Figure 1 — Accuracy Comparison.</strong> Model B (2 hidden layers) achieves the best test accuracy at ~97%, closely followed by Model C. Model A performs reasonably well but clearly hits a ceiling, likely because a single layer can't capture the digit patterns as effectively.
+            </div>
+          </div>
+          <div class="img-card">
+            <img src="images/training_curve.png" alt="Training loss curve" class="img-placeholder">
+
+            <div class="img-caption">
+              <strong>Figure 2 — Training Curves.</strong> Model A converges quickly but plateaus. Models B and C drop lower in loss, but notice how Model C's validation loss starts creeping back up after a certain point — that's the early sign of overfitting. Model B hits the sweet spot.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCUSSION -->
+    <section id="discussion" class="section">
+      <div class="container">
+        <div class="section-label">05 / Discussion</div>
+        <h2 class="section-title">Why Did This Happen?</h2>
+
+        <div class="discussion-grid">
+          <div class="discuss-block">
+            <h3>Why Deeper = Better (Up to a Point)</h3>
+            <p>Each hidden layer gives the model a new level of abstraction. Layer 1 might learn simple things like "there's a vertical line here". Layer 2 might combine that to recognise "this looks like part of a loop". Layer 3 might put it all together to say "this is an 8". More layers genuinely help with complex patterns — but only if the dataset is big enough to support all those extra parameters.</p>
+          </div>
+
+          <div class="discuss-block">
+            <h3>What Is Overfitting?</h3>
+            <p>Overfitting is when a model gets so good at memorising the training data that it performs worse on new, unseen examples. Think of it like a student who memorises past exam papers but struggles when the actual exam has slightly different questions. In our case, Model C showed early signs of this — its training accuracy kept climbing while validation accuracy started to dip.</p>
+            <div class="callout">
+              <span class="callout-icon">⚠️</span>
+              <span>Overfitting is the enemy of generalisation — the whole point of ML is to handle data it's <em>never seen before</em>.</span>
+            </div>
+          </div>
+
+          <div class="discuss-block">
+            <h3>Trade-offs to Consider</h3>
+            <p>Adding layers isn't free. More layers mean more parameters, longer training times, and higher risk of overfitting. For small datasets like Digits (only ~1,800 samples), a 2-layer model strikes the best balance. On a massive dataset like ImageNet, a 3 or even 50-layer network would be totally fine — and often necessary.</p>
+          </div>
+
+          <div class="discuss-block">
+            <h3>Regularisation as a Fix</h3>
+            <p>If we wanted to safely use the 3-layer model, we could add <strong>Dropout</strong> (randomly disabling neurons during training) or <strong>L2 regularisation</strong> (penalising large weights). These techniques keep deeper models honest and prevent them from over-relying on any single feature in the training data.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONCLUSION -->
+    <section id="conclusion" class="section alt-section">
+      <div class="container">
+        <div class="section-label">06 / Conclusion</div>
+        <h2 class="section-title">What Did We Learn?</h2>
+        <div class="conclusion-wrap">
+          <p>This project set out to answer a simple question: does adding more hidden layers actually make an MLP perform better? The short answer is <strong>yes — but only up to a point</strong>.</p>
+          <p>Going from 1 to 2 hidden layers gave us a clear accuracy boost. The model gained the ability to learn hierarchical features, which made digit classification noticeably more reliable. But pushing to 3 layers on a small dataset didn't continue that trend — instead, we started to see the early warning signs of overfitting.</p>
+
+          <div class="key-takeaways">
+            <h3>Key Takeaways</h3>
+            <div class="takeaway-list">
+              <div class="takeaway">
+                <span class="takeaway-num">1</span>
+                <p>More hidden layers improve performance — but only when the dataset is large enough to justify the extra complexity.</p>
+              </div>
+              <div class="takeaway">
+                <span class="takeaway-num">2</span>
+                <p>Overfitting is a real risk with deeper networks on small datasets. Always monitor both training and validation metrics.</p>
+              </div>
+              <div class="takeaway">
+                <span class="takeaway-num">3</span>
+                <p>Architecture choices should be driven by the problem and the data — not the assumption that bigger is always better.</p>
+              </div>
+              <div class="takeaway">
+                <span class="takeaway-num">4</span>
+                <p>Regularisation (dropout, L2) is the practical tool for making deeper networks safer and more generalisable.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETHICS -->
+    <section id="ethics" class="section">
+      <div class="container">
+        <div class="section-label">07 / Ethical Considerations</div>
+        <h2 class="section-title">The Bigger Picture</h2>
+        <div class="ethics-grid">
+          <div class="ethics-card">
+            <div class="ethics-icon">⚖️</div>
+            <h3>Bias in Training Data</h3>
+            <p>Even though the Digits dataset is clean and balanced, real-world ML datasets often aren't. If a model is trained mostly on data from one demographic or context, it will perform poorly — or unfairly — on underrepresented groups. Digit recognition sounds harmless, but the same MLP principles power facial recognition and hiring algorithms, where bias causes genuine harm.</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-icon">🔍</div>
+            <h3>Transparency and Explainability</h3>
+            <p>Deep networks are often called "black boxes" — even their creators can't always explain exactly why a prediction was made. In critical applications like healthcare diagnostics or loan decisions, explainability isn't optional. It's a responsibility. Simpler models (like 1-layer MLPs) are far more interpretable, and that transparency has real value.</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-icon">🌍</div>
+            <h3>Responsible Use of AI</h3>
+            <p>Powerful ML models come with power to misuse. Systems built on these architectures can be used for surveillance, misinformation, or manipulation. As machine learning practitioners — even at the student level — it's worth developing the habit of asking: <em>What is this model for? Who does it affect? Could it cause harm?</em></p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-icon">🌱</div>
+            <h3>Environmental Cost</h3>
+            <p>Training large neural networks consumes enormous amounts of energy. While a small experiment like this has minimal footprint, it's worth being mindful that scaling up — say, to hundreds of GPUs training for weeks — has real environmental consequences. Efficient architecture choices are both good engineering and good practice for the planet.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GITHUB -->
+    <section id="github" class="section alt-section">
+      <div class="container">
+        <div class="section-label">08 / Repository</div>
+        <h2 class="section-title">Project Code</h2>
+        <div class="github-card">
+          <div class="github-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48" aria-hidden="true">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+          </div>
+          <div class="github-text">
+            <h3>smitbhavsar / mlp-hidden-layers-study</h3>
+            <p>Complete source code including data preprocessing, all three model architectures, training scripts, and result visualisations. Feel free to fork, experiment, and break things.</p>
+            <a href="https://github.com/Smit2709/MLP-Layer-Analysis.git" class="github-btn" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFERENCES -->
+    <section id="references" class="section">
+      <div class="container">
+        <div class="section-label">09 / References</div>
+        <h2 class="section-title">Sources & Further Reading</h2>
+        <ol class="ref-list">
+          <li>
+            <span class="ref-authors">Goodfellow, I., Bengio, Y., & Courville, A.</span>
+            <span class="ref-year">(2016).</span>
+            <em>Deep Learning.</em>
+            MIT Press.
+            <a href="https://www.deeplearningbook.org" target="_blank" rel="noopener noreferrer" class="ref-link">deeplearningbook.org ↗</a>
+          </li>
+          <li>
+            <span class="ref-authors">Pedregosa, F. et al.</span>
+            <span class="ref-year">(2011).</span>
+            <em>Scikit-learn: Machine Learning in Python.</em>
+            Journal of Machine Learning Research, 12, 2825–2830.
+            <a href="https://scikit-learn.org/stable/modules/neural_networks_supervised.html" target="_blank" rel="noopener noreferrer" class="ref-link">scikit-learn.org ↗</a>
+          </li>
+          <li>
+            <span class="ref-authors">Abadi, M. et al.</span>
+            <span class="ref-year">(2015).</span>
+            <em>TensorFlow: Large-Scale Machine Learning on Heterogeneous Systems.</em>
+            <a href="https://www.tensorflow.org/guide/keras" target="_blank" rel="noopener noreferrer" class="ref-link">tensorflow.org/guide/keras ↗</a>
+          </li>
+          <li>
+            <span class="ref-authors">LeCun, Y., Cortes, C., & Burges, C. J. C.</span>
+            <span class="ref-year">(1998).</span>
+            <em>The MNIST Database of Handwritten Digits.</em>
+            <a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener noreferrer" class="ref-link">yann.lecun.com ↗</a>
+          </li>
+          <li>
+            <span class="ref-authors">Nielsen, M. A.</span>
+            <span class="ref-year">(2015).</span>
+            <em>Neural Networks and Deep Learning.</em>
+            Determination Press.
+            <a href="http://neuralnetworksanddeeplearning.com" target="_blank" rel="noopener noreferrer" class="ref-link">neuralnetworksanddeeplearning.com ↗</a>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-name">Smit Bhavsar</span>
+        <span class="footer-course">Machine Learning / Neural Networks</span>
+      </div>
+      <div class="footer-right">
+        <span>Built with HTML & CSS · No frameworks · No fluff</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
